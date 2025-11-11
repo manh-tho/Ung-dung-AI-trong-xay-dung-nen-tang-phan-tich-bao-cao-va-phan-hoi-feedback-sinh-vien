@@ -32,3 +32,8 @@ training_data.csv
 config.py
 *.key
 *.pem
+.venv/
+venv/
+Backend/.venv/
+**/.venv/
+**/venv/
