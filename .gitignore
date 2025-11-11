@@ -1,0 +1,34 @@
+﻿# Hệ điều hành & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+*.log
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+
+# Database & model
+*.db
+*.sqlite
+*.safetensors
+*.pt
+*.bin
+*.h5
+my_custom_*_model/
+Backend/uploads/
+training_data.csv
+
+# Khóa bí mật
+config.py
+*.key
+*.pem
