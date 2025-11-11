@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Feedback Platform</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+
+<body class="bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+<div class="flex h-screen">
+  <aside id="sidebar" class="sidebar flex flex-col border-r border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+    <div class="p-4 text-lg font-bold flex items-center gap-2">
+      <i data-lucide="brain" class="w-5 h-5 text-blue-600"></i> AI Feedback Platform
+    </div>
+    <nav class="p-3 space-y-1">
+      <a href="#/"          class="navlink" data-route="/"><i data-lucide="home"></i><span class="navtext">Tổng quan</span></a>
+      <a href="#/feedback"  class="navlink" data-route="/feedback" id="menuFeedback"><i data-lucide="message-square"></i><span class="navtext">Gửi Feedback</span></a>
+      <a href="#/dashboard" class="navlink" data-route="/dashboard" id="menuDashboard"><i data-lucide="bar-chart-3"></i><span class="navtext">Dashboard</span></a>
+      <a href="#/history"   class="navlink" data-route="/history"><i data-lucide="history"></i><span class="navtext">Lịch sử</span></a>
+      <a href="#/method"    class="navlink" data-route="/method"><i data-lucide="workflow"></i><span class="navtext">Quy trình AI</span></a>
+      <a href="#/topics"    class="navlink" data-route="/topics"><i data-lucide="sparkles"></i><span class="navtext">Khám phá Topic</span></a>
+      <a href="#/notifications" class="navlink" data-route="/notifications" id="menuNotifications"><i data-lucide="bell"></i><span class="navtext">Thông báo</span></a>
+      <a href="#/admin"     class="navlink" data-route="/admin" id="menuAdmin"><i data-lucide="bot"></i><span class="navtext">Quản trị </span></a>
+    </nav>
+  </aside>
+  <div id="sidebarResizer" class="resizer"></div>
+
+  <div class="flex-1 flex flex-col">
+    <header class="flex items-center justify-between gap-3 p-4 border-b bg-white/70 dark:bg-neutral-900/70 border-neutral-200 dark:border-neutral-800 sticky top-0 z-40 backdrop-blur">
+      <div class="flex items-center gap-2">
+        <button id="collapseBtn" class="icon-btn" title="Thu gọn/mở rộng"><i data-lucide="panel-left-close"></i></button>
+        <span class="font-semibold hidden sm:block">Ứng dụng AI phân tích & phản hồi feedback sinh viên</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <input id="quickSearch" placeholder="Tìm feedback..." class="hidden md:block text-sm px-3 py-1.5 rounded-lg border">
+        <div id="authMount" class="flex items-center gap-2"></div>
+      </div>
+    </header>
+    <main id="view" class="flex-1 p-6 overflow-auto"></main>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="./auth/auth.js"></script>
+<script src="./js/helpers.js"></script>
+<script src="./js/router.js"></script>
+<script src="./js/home.js"></script>
+<script src="./js/feedback.js"></script>
+<script src="./js/dashboard.js"></script>
+<script src="./js/topics.js"></script>
+<script src="./js/notfound.js"></script>
+<script src="./js/history.js?v=final-solution"></script>
+<script src="./js/method.js"></script>
+<script src="./js/notifications.js"></script>
+<script src="./js/admin.js?v=final-solution"></script>
+
+<script>
+  (function guard() {
+    const { token } = authAPI.getAuth();
+    if (!token) {
+      alert("Vui lòng đăng nhập trước!");
+      location.href = "./auth/login.html"; 
+    }
+  })();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    authAPI.renderAuthNavbar(document.querySelector("#authMount"));
+
+    const { user } = authAPI.getAuth();
+    const isAdmin = user && user.role === "admin";
+
+    const menuVisibility = {
+        'menuFeedback': !isAdmin,
+        'menuDashboard': isAdmin,
+        'menuAdmin': isAdmin,
+        'menuNotifications': !isAdmin, // Chỉ hiện cho sinh viên
+    };
+
+    for (const id in menuVisibility) {
+        const menu = document.getElementById(id);
+        if (menu) menu.style.display = menuVisibility[id] ? "" : "none";
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+    
+    const searchInput = document.getElementById('quickSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            window.dispatchEvent(new CustomEvent('app-search', { detail: { q: e.target.value } }));
+        });
+    }
+  });
+</script>
+</body>
+</html>

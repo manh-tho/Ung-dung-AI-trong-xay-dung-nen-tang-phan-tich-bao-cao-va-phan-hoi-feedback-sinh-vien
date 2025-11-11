@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đăng nhập | AI Feedback Platform</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.456.0/dist/umd/lucide.min.js"></script>
+</head>
+<body class="min-h-screen grid place-items-center bg-gray-100 dark:bg-neutral-900 px-4">
+
+  <div class="w-full max-w-md">
+    <div class="card p-8 space-y-6">
+      <div class="text-center space-y-2">
+        <div class="inline-block p-3 bg-blue-100 dark:bg-blue-900/40 rounded-full">
+          <i data-lucide="brain" class="w-7 h-7 text-blue-600 dark:text-blue-400"></i>
+        </div>
+        <h1 class="text-2xl font-bold">Chào mừng trở lại</h1>
+        <p class="text-neutral-500 dark:text-neutral-400">Đăng nhập để tiếp tục với Nền tảng AI Feedback</p>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="text-sm font-medium">Tài khoản</label>
+          <div class="relative mt-1">
+            <i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+            <input id="inpUser" class="input pl-10" placeholder="Nhập tài khoản" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium">Mật khẩu</label>
+          <div class="relative mt-1">
+            <i data-lucide="lock" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+            <input id="inpPass" type="password" class="input pl-10 pr-10" placeholder="••••••••" />
+            <button id="togglePassword" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+              <i data-lucide="eye" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium">Vai trò</label>
+          <div class="flex items-center gap-6 mt-2">
+            <label class="inline-flex items-center gap-2 cursor-pointer"><input type="radio" name="role" value="student" checked><span>Sinh viên</span></label>
+            <label class="inline-flex items-center gap-2 cursor-pointer"><input type="radio" name="role" value="admin"><span>Quản trị viên</span></label>
+          </div>
+        </div>
+
+        <p id="err" class="hidden text-sm text-red-600 text-center"></p>
+        <button id="btnLogin" class="btn btn-primary w-full !py-3 !text-base">Đăng nhập</button>
+      </div>
+    </div>
+    <div class="text-center text-sm text-neutral-600 mt-6">
+      Chưa có tài khoản? <a href="./register.html" class="font-semibold text-blue-600 hover:underline">Đăng ký ngay</a>
+    </div>
+  </div>
+
+  <script src="./auth.js"></script>
+  <script src="../js/helpers.js"></script>
+  <script>
+    async function doLogin(){
+      const btn = document.getElementById("btnLogin");
+      const err = document.getElementById("err");
+      authAPI.showError(err, "");
+      try {
+        authAPI.setBtnLoading(btn, true, "Đang đăng nhập...");
+        const username = document.getElementById("inpUser").value.trim();
+        const password = document.getElementById("inpPass").value.trim();
+        const role = document.querySelector('input[name="role"]:checked').value;
+        if (!username || !password) {
+          throw new Error("Vui lòng nhập đầy đủ.");
+        }
+        await authAPI.apiLogin({ username, password, role });
+        location.href = "../index.html"; 
+      } catch (e) {
+        authAPI.showError(err, e.message || "Đăng nhập thất bại");
+      } finally {
+        authAPI.setBtnLoading(btn, false);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("btnLogin").addEventListener("click", doLogin);
+      ["inpUser","inpPass"].forEach(id => {
+        document.getElementById(id).addEventListener("keyup", ev => { 
+          if (ev.key === "Enter") doLogin(); 
+        });
+      });
+
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('inpPass');
+      
+      togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        const icon = this.querySelector('i');
+        icon.setAttribute('data-lucide', type === 'password' ? 'eye' : 'eye-off');
+        if (window.lucide) lucide.createIcons();
+      });
+
+      if (window.lucide) window.lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
