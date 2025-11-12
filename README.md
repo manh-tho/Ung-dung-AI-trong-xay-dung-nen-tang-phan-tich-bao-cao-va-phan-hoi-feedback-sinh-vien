@@ -293,8 +293,9 @@ Phát hành theo **MIT License**. Xem tệp `LICENSE`.
 
 <div align="center">
 
-**⭐ Nếu project này hữu ích, hãy cho một star để ủng hộ nhóm nhé! ⭐**  
+**⭐ Nếu project này hữu ích, hãy cho một star để ủng hộ mình nhé! ⭐**  
 Made with ❤️ by Team BTL CDS
 
 </div>
+
 
