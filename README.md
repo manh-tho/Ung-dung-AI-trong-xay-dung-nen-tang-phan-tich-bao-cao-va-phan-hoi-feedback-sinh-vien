@@ -1,6 +1,7 @@
 <div align="center">
 <div align="center">
   <img src="Logodainam.png" width="200"/> 
+  <img src="logokhoa.jpg" width="200"/>
 </div>
 
 # 🎓 AI Feedback Platform
@@ -300,6 +301,7 @@ Phát hành theo **MIT License**. Xem tệp `LICENSE`.
 Made with ❤️ by [ Hồ Đức Mạnh ]
 
 </div>
+
 
 
 
