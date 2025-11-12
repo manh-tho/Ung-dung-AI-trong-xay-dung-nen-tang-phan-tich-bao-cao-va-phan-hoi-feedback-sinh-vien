@@ -104,11 +104,11 @@
 
 - **Sentiment Model**: `my_custom_sentiment_model`  
   Base: `5CD-AI/Vietnamese-Sentiment-visobert`  
-  Accuracy: ~92% (tham khảo)  
+  Accuracy: ~92% 
 
 - **Category Model**: `my_custom_category_model`  
   Nhãn: **Học tập, CSVC, Học phí, Sự kiện, Khác**  
-  Accuracy: ~90% (tham khảo)
+  Accuracy: ~90% 
 
 **Cấu hình ví dụ (train sentiment):**
 ```python
@@ -219,6 +219,7 @@ uvicorn main:app --reload --port 8000
 
 ### 3) Sinh phản hồi tự động (Gemini)
 ```text
+Sau khi gửi tự động AI Gemini phản hồi tự động hoặc:
 1. Tại trang quản trị, chọn một phản hồi
 2. Nhấn “Tạo phản hồi AI” → Gemini sinh nội dung
 3. Duyệt & gửi lại cho sinh viên (tuỳ workflow)
@@ -249,10 +250,6 @@ Truy cập **http://127.0.0.1:8000/docs** để xem & thử API.
 
 ---
 
-## 🖼️ Screenshots
-*(Thêm ảnh minh hoạ dashboard tại đây nếu có)*
-
----
 
 ## 🎓 Roadmap
 - [ ] Trang quản trị nâng cao (bộ lọc, export CSV)  
@@ -281,11 +278,8 @@ Phát hành theo **MIT License**. Xem tệp `LICENSE`.
 ---
 
 ## 👨‍💻 Tác Giả
-**Hồ Đức Mạnh** — Trưởng nhóm / AI & Backend  
+**Hồ Đức Mạnh** 
 📧 manh1052004@gmail.com  
-
-**Phan Xuân Khải** — Frontend / UI  
-📧 phankhai04112004@gmail.com  
 
 ---
 
@@ -303,3 +297,4 @@ Phát hành theo **MIT License**. Xem tệp `LICENSE`.
 Made with ❤️ by Team BTL CDS
 
 </div>
+
