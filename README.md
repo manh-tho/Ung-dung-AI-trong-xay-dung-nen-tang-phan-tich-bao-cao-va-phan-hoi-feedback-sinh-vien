@@ -1,4 +1,7 @@
 <div align="center">
+<div align="center">
+  <img src="logoDaiNam.png" width="200"/> 
+</div>
 
 # 🎓 AI Feedback Platform
 
@@ -297,6 +300,7 @@ Phát hành theo **MIT License**. Xem tệp `LICENSE`.
 Made with ❤️ by [ Hồ Đức Mạnh ]
 
 </div>
+
 
 
 
